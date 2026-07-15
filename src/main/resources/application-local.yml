@@ -1,0 +1,8 @@
+spring:
+  datasource:
+#    replace with Docker based oracle:
+#    https://juanespinozaweb.wordpress.com/2025/05/16/oracle-database-on-docker-quick-setup-for-developers/
+    url: jdbc:h2:mem:plp
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
