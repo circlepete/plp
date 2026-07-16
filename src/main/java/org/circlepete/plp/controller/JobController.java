@@ -1,13 +1,13 @@
 package org.circlepete.plp.controller;
 
-import org.circlepete.plp.entity.Job;
+import org.circlepete.plp.dto.JobRequest;
+import org.circlepete.plp.dto.JobResponse;
 import org.circlepete.plp.service.JobService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -18,23 +18,23 @@ public class JobController {
     JobService jobService;
 
     @PostMapping("/job")
-    public ResponseEntity<Job> create(@RequestBody Job request) {
+    public ResponseEntity<JobResponse> create(@RequestBody JobRequest request) {
         return ResponseEntity.ok(jobService.create(request));
     }
 
     @GetMapping
-    public ResponseEntity<List<Job>> get() {
+    public ResponseEntity<List<JobResponse>> get() {
         return ResponseEntity.status(200).body(jobService.get());
     }
 
     @GetMapping("/job/{id}")
-    public ResponseEntity<Optional<Job>> get(@PathVariable UUID id) {
+    public ResponseEntity<JobResponse> get(@PathVariable UUID id) {
         return ResponseEntity.status(200).body(jobService.get(id));
     }
 
     @PutMapping("/job/{id}")
-    public ResponseEntity<Job> update(@PathVariable UUID id,
-                                      @RequestBody Job request) {
+    public ResponseEntity<JobResponse> update(@PathVariable UUID id,
+                                              @RequestBody JobRequest request) {
         return ResponseEntity.ok(jobService.update(id, request));
     }
 
