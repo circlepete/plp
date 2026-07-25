@@ -1,7 +1,7 @@
 package org.circlepete.plp.entity;
 
 public record JobResponse(
-        String name,
+        String title,
         String details
 ) {
 }
