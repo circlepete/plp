@@ -16,8 +16,8 @@ public class Job {
     @Column(name = "id")
     UUID id;
 
-    @Column(name = "name")
-    String name;
+    @Column(name = "title")
+    String title;
 
     @Column(name = "details")
     String details;

@@ -38,7 +38,7 @@ public class JobServiceImpl implements JobService {
             return jobRepository.save(job);
         }
 
-        existingJob.setName(job.getName());
+        existingJob.setTitle(job.getTitle());
         existingJob.setDetails(job.getDetails());
 
         return jobRepository.save(existingJob);
