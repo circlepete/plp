@@ -27,7 +27,7 @@ public class JobMapperTest {
 
         // then
         assertSoftly(softAssertions -> {
-            softAssertions.assertThat(request.name()).isEqualTo(result.getName());
+            softAssertions.assertThat(request.title()).isEqualTo(result.getTitle());
             softAssertions.assertThat(request.details()).isEqualTo(result.getDetails());
             softAssertions.assertThat(result.getId()).isNotNull();
         });
