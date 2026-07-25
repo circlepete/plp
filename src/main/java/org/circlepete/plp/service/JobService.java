@@ -1,20 +1,20 @@
 package org.circlepete.plp.service;
 
-import org.circlepete.plp.entity.Job;
+import org.circlepete.plp.dto.JobRequest;
+import org.circlepete.plp.dto.JobResponse;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface JobService {
 
-    Job create(Job job);
+    JobResponse create(JobRequest job);
 
-    List<Job> get();
+    List<JobResponse> get();
 
-    Optional<Job> get(UUID id);
+    JobResponse get(UUID id);
 
-    Job update(UUID id, Job job);
+    JobResponse update(UUID id, JobRequest job);
 
     boolean delete(UUID id);
 }

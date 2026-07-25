@@ -1,12 +1,15 @@
 package org.circlepete.plp.service;
 
+import jakarta.transaction.Transactional;
+import org.circlepete.plp.dto.JobResponse;
 import org.circlepete.plp.entity.Job;
+import org.circlepete.plp.dto.JobRequest;
+import org.circlepete.plp.mapper.JobMapper;
 import org.circlepete.plp.repository.JobRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -15,33 +18,55 @@ public class JobServiceImpl implements JobService {
     @Autowired
     JobRepository jobRepository;
 
+    @Autowired
+    JobMapper mapper;
+
     @Override
-    public Job create(Job job) {
-        return jobRepository.save(job);
+    @Transactional
+    public JobResponse create(JobRequest request) {
+        Job job = mapper.toJob(request);
+
+        jobRepository.save(job);
+
+        return mapper.toResponse(job);
     }
 
     @Override
-    public List<Job> get() {
-        return jobRepository.findAll();
+    public List<JobResponse> get() {
+        List<Job> jobs = jobRepository.findAll();
+
+        return jobs.stream()
+                .map(job -> mapper.toResponse(job))
+                .toList();
     }
 
     @Override
-    public Optional<Job> get(UUID id) {
-        return jobRepository.findById(id);
+    public JobResponse get(UUID id) {
+        Job job = jobRepository.findById(id).orElse(null);
+        if (job != null) {
+            return mapper.toResponse(job);
+        }
+        // TODO replace null with proper response
+        return null;
     }
 
     @Override
-    public Job update(UUID id, Job job) {
+    public JobResponse update(UUID id, JobRequest request) {
         Job existingJob = jobRepository.findById(id).orElse(null);
 
         if (existingJob == null) {
-            return jobRepository.save(job);
+            Job newJob = mapper.toJob(request);
+            jobRepository.save(newJob);
+
+            // TODO replace with proper response
+            return mapper.toResponse(newJob);
         }
 
-        existingJob.setTitle(job.getTitle());
-        existingJob.setDetails(job.getDetails());
+        existingJob = mapper.toJob(request);
+        jobRepository.save(existingJob);
 
-        return jobRepository.save(existingJob);
+        // TODO replace with proper response
+        return mapper.toResponse(existingJob);
     }
 
     @Override
