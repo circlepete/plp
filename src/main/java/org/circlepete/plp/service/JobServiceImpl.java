@@ -32,22 +32,12 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    public List<JobResponse> get() {
-        List<Job> jobs = jobRepository.findAll();
+    public List<JobResponse> get(String title, String details) {
+        List<Job> jobs = jobRepository.findBytitleAndDetails(title, details);
 
         return jobs.stream()
                 .map(job -> mapper.toResponse(job))
                 .toList();
-    }
-
-    @Override
-    public JobResponse get(UUID id) {
-        Job job = jobRepository.findById(id).orElse(null);
-        if (job != null) {
-            return mapper.toResponse(job);
-        }
-        // TODO replace null with proper response
-        return null;
     }
 
     @Override

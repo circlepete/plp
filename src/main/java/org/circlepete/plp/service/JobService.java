@@ -10,9 +10,7 @@ public interface JobService {
 
     JobResponse create(JobRequest job);
 
-    List<JobResponse> get();
-
-    JobResponse get(UUID id);
+    List<JobResponse> get(String title, String details);
 
     JobResponse update(UUID id, JobRequest job);
 

@@ -22,14 +22,12 @@ public class JobController {
         return ResponseEntity.ok(jobService.create(request));
     }
 
-    @GetMapping
-    public ResponseEntity<List<JobResponse>> get() {
-        return ResponseEntity.status(200).body(jobService.get());
-    }
-
-    @GetMapping("/job/{id}")
-    public ResponseEntity<JobResponse> get(@PathVariable UUID id) {
-        return ResponseEntity.status(200).body(jobService.get(id));
+    @GetMapping("/job")
+    public ResponseEntity<List<JobResponse>> get(
+            @RequestParam(value = "title", required = false) String title,
+            @RequestParam(value = "details", required = false) String details
+    ) {
+        return ResponseEntity.status(200).body(jobService.get(title, details));
     }
 
     @PutMapping("/job/{id}")

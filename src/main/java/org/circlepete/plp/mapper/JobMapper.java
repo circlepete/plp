@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Mapper(componentModel = "spring", imports = UUID.class)
 public interface JobMapper {
-    @Mapping(target = "id", expression = "java(UUID.randomUUID())")
+    @Mapping(target = "id", ignore = true)
     Job toJob(JobRequest request);
 
     JobResponse toResponse(Job job);
